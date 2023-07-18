@@ -24,22 +24,23 @@ document.getElementById("btn").addEventListener("click", () => {
   createUserWithEmailAndPassword(auth, email, pass)
   .then(async(userCredential) => {
     
+    const user = userCredential.user
     try {
-      const docRef = await addDoc(collection(db, "signup"), {
+      const docRef = await addDoc(collection(db, "signup",user.uid), {
         first: name,
         phoneNumber: phoneNumber,
         email:  email,
-        password:pass
+        password:pass,
+        user:user.uid
         // createdOn: new Date.now()
       });
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ", user.uid);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
 
     
       // Signed in 
-      const user = userCredential.user
       sendEmailVerification(auth.currentUser)
       .then((res)=>{
         // alert("email send")
@@ -50,9 +51,9 @@ document.getElementById("btn").addEventListener("click", () => {
               'Singup SUCCES And Email Send',
               'success'
               )
-              setTimeout(()=>{
-                  window.location.href="./login.html"
-                }, 2000)
+              // setTimeout(()=>{
+              //     window.location.href="./login.html"
+              //   }, 2000)
         
      
       })
