@@ -1,7 +1,6 @@
-import { doc, updateDoc ,db ,} from  "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getAuth} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, updateDoc } from  "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { auth ,db} from "./config.mjs";
 
-const auth = getAuth(app);
 // const db = getFirestore(app);
 // const btn = document.getElementById("btn").addEventListener("click",async()=>{
 // })
@@ -11,7 +10,7 @@ const btn_u = document.getElementById("btnu").addEventListener("click",async()=>
     const email= document.getElementById("email") 
     const password= document.getElementById("password") 
     const number= document.getElementById("number") 
-    const store_uid= auth.currentUser.uid
+    const store_uid= (auth.currentUser.uid)
         const washingtonRef = doc(db, "signup",store_uid );
     
         await updateDoc(washingtonRef, {

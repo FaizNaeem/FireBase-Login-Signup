@@ -1,38 +1,29 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore ,collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword ,sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { auth,app,db } from "./config.mjs"
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import {  createUserWithEmailAndPassword ,sendEmailVerification} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCarN6h6FPkS3raGOKAScjMJcdp_r0kHWU",
-  authDomain: "smitproject-39703.firebaseapp.com",
-  projectId: "smitproject-39703",
-  storageBucket: "smitproject-39703.appspot.com",
-  messagingSenderId: "849520424684",
-  appId: "1:849520424684:web:2a1feca7190271ea5557c9",
-  measurementId: "G-LKLK8SZ6EX"
-};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
- const db = getFirestore(app);
+
 document.getElementById("btn").addEventListener("click", () => {
   let email = document.getElementById("text").value
   let pass = document.getElementById("pass").value
   let name = document.getElementById("name").value
   let phoneNumber = document.getElementById("number").value
   console.log(email,pass,name,phoneNumber);
+  const userData={
+    name:name,
+    phoneNumber:phoneNumber,
+    email:email,
+    pass:pass,
+}
   createUserWithEmailAndPassword(auth, email, pass)
   .then(async(userCredential) => {
     
     const user = userCredential.user
     try {
       const docRef = await addDoc(collection(db, "signup",user.uid), {
-        first: name,
-        phoneNumber: phoneNumber,
-        email:  email,
-        password:pass,
+        ... userData,
         user:user.uid
-        // createdOn: new Date.now()
       });
       console.log("Document written with ID: ", user.uid);
     } catch (e) {

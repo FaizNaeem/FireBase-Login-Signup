@@ -1,23 +1,11 @@
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { auth,app,db } from "./config.mjs"
 
-import { getAuth,  signInWithEmailAndPassword ,FacebookAuthProvider,GoogleAuthProvider ,signInWithPopup,signInWithRedirect} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import {  signInWithEmailAndPassword ,FacebookAuthProvider,GoogleAuthProvider ,signInWithPopup,signInWithRedirect} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCarN6h6FPkS3raGOKAScjMJcdp_r0kHWU",
-  authDomain: "smitproject-39703.firebaseapp.com",
-  projectId: "smitproject-39703",
-  storageBucket: "smitproject-39703.appspot.com",
-  messagingSenderId: "849520424684",
-  appId: "1:849520424684:web:2a1feca7190271ea5557c9",
-  measurementId: "G-LKLK8SZ6EX"
-};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const google = new GoogleAuthProvider(app);
-const analytics = getAnalytics(app);
 // console.log(google);
 document.getElementById("btn_1").addEventListener("click", () => {
     let email = document.getElementById("text_1").value
